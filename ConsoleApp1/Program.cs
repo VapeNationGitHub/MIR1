@@ -12,28 +12,41 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Repeat:
-
             Console.Write("Введите, что вы хотите повторить: ");
-            string repeat = Console.ReadLine();
+            string userText = Console.ReadLine();
 
-            Console.Write("Введите количество дней, когда вы последний раз повторяли информацию: ");
-            string stringX = Console.ReadLine();
-            if (stringX != " ")
+            if (String.IsNullOrWhiteSpace(userText))
             {
-                int X = Convert.ToInt32(stringX);
-                int Y = 2 * X + 1;
+                Console.WriteLine("Значение не может быть пустым, повторите!");
+                goto Repeat;
+            }
+            else if (userText != null)
+            {
+                LabelQuestion:
+                Console.Write("Введите количество дней, когда вы последний раз повторяли информацию: ");
+                string stringX = Console.ReadLine();
 
-                Console.WriteLine("Информация появится через " + Y + " дней");
-                Thread.Sleep(Y * 1000);
-                Console.WriteLine(repeat);
-                Console.ReadLine();                            
-             }
+                if (String.IsNullOrWhiteSpace(stringX))
+                {
+                    Console.WriteLine("Значение не может быть пустым, повторите!");
+                    goto LabelQuestion;
+                }
+                else if (stringX != null)
+                {
+                    int X = Convert.ToInt32(stringX);
+                    int Y = 2 * X + 1;
 
-            Console.Write("Хотите повторить? Yes/No ");
+                    Console.WriteLine("Информация появится через " + Y + " дней");
+                    Thread.Sleep(Y * 1000);
+                    Console.WriteLine(userText);
+                    Console.ReadLine();
+                }
+            }
+
+            Console.Write("Хотите повторить? yes/no ");
             string rep = Console.ReadLine();
-            if (rep == "Yes") goto Repeat;
-            if (rep == "No") return;
-
+            if (rep == "yes") goto Repeat;
+            if (rep == "no") return;
 
         }
     }
